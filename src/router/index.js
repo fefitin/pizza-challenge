@@ -43,7 +43,7 @@ const routes = [
       requiresAuth: true
     },
     component: () =>
-      import(/* webpackChunkName: "login" */ "../views/Challenge.vue")
+      import(/* webpackChunkName: "challenge" */ "../views/Challenge.vue")
   },
   {
     path: "/challenges/:challengeId/:pizzeriaId",
@@ -52,7 +52,7 @@ const routes = [
       requiresAuth: true
     },
     component: () =>
-      import(/* webpackChunkName: "login" */ "../views/Votar.vue")
+      import(/* webpackChunkName: "votar" */ "../views/Votar.vue")
   }
 ];
 
