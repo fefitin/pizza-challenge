@@ -6,7 +6,7 @@ require('firebase/auth')
 require('firebase/firestore')
 
 // Firebase config
-var serviceAccount = require("./../firebase/credentials.json");
+var serviceAccount = JSON.parse(new Buffer.from(process.env.VUE_APP_PIZZA_CHALLENGE_DB_CREDENTIALS, 'base64'));
 
 firebase.initializeApp({
   credential: firebase.credential.cert(serviceAccount),
