@@ -6,9 +6,9 @@ const api = {
   host: function() {
     let url;
 
-    if (process.env.NODE_ENV == "development") {
+    if (process.env.NODE_ENV == 'development') {
       const port = process.env.VUE_APP_PIZZA_CHALLENGE_SERVER_PORT;
-      url = `http://192.168.1.101:${port}/api`;
+      url = `http://192.168.0.2:${port}/api`;
     } else {
       url = `https://${location.host}/api`;
     }
@@ -17,15 +17,18 @@ const api = {
   },
   get: async function(url) {
     const token = await firebase.auth().currentUser.getIdToken();
-    
+
     return new Promise((res, rej) => {
-      axios.get(`${api.host()}/${url}`, {
-        headers: { Authorization: `Bearer ${token}` }
-      }).then(data => {
-        res(data.data);
-      }).catch(rej);
-    })
-  }
-}
+      axios
+        .get(`${api.host()}/${url}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then(data => {
+          res(data.data);
+        })
+        .catch(rej);
+    });
+  },
+};
 
 export default api;

@@ -8,25 +8,25 @@ const socket = {
   init: function() {
     let url;
 
-    if (process.env.NODE_ENV == "development") {
+    if (process.env.NODE_ENV == 'development') {
       const port = process.env.VUE_APP_PIZZA_CHALLENGE_SERVER_PORT;
-      url = `ws://192.168.1.101:${port}`;
+      url = `ws://192.168.0.2:${port}`;
     } else {
-      url = 'wss://'+location.host;
+      url = 'wss://' + location.host;
     }
 
     socket.socket = new WebSocket(url);
 
-    socket.socket.addEventListener("message", message => {
+    socket.socket.addEventListener('message', message => {
       message = JSON.parse(message.data);
-      if(socket.receiveHandlers[message.name]) {
+      if (socket.receiveHandlers[message.name]) {
         const handler = socket.receiveHandlers[message.name];
         handler(message);
       }
     });
-  
+
     return new Promise((resolve, reject) => {
-      socket.socket.addEventListener("open", () => {
+      socket.socket.addEventListener('open', () => {
         resolve();
       });
     });
@@ -40,6 +40,6 @@ const socket = {
   },
   reset() {
     socket.send('setPizzeriaId', null);
-  }
+  },
 };
 export default socket;
